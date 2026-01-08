@@ -19,6 +19,38 @@
             audio.play();
         }
     </script>
+    <style>
+        #new-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            opacity: 0;
+            transition: opacity 1s ease-in;
+            z-index: 100;
+            margin-top: -180px;
+        }
+        #new-content.visible {
+            opacity: 1;
+        }
+        .lucky-text {
+            font-size: 24px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .time-stats {
+            font-size: 20px;
+            font-weight: 300;
+            line-height: 1.8;
+            letter-spacing: 1px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+    </style>
 </head>
 <body>
     <div id="main">
@@ -33,6 +65,15 @@
                     <span class="say">You deserve all the happiness in the world</span><br>
                     <span class="say">Happy Birthday 🎈</span><br>
                     <span class="say">اHAGER</span><br>
+                </div>
+            </div>
+            <div id="new-content">
+                <div class="lucky-text">THE WORLD JUST GOT LUCKIER SINCE</div>
+                <div class="time-stats">
+                    19 Years<br>
+                    228 Months<br>
+                    6,940 Days<br>
+                    166,560 Hours
                 </div>
             </div>
             <div id="clock-box">
@@ -164,12 +205,18 @@
             $("#code").show().typewriter();
         }));
 	    
+        var showNewContent = eval(Jscex.compile("async", function () {
+            $await(Jscex.Async.sleep(500));
+            $("#new-content").addClass("visible");
+        }));
+
         var runAsync = eval(Jscex.compile("async", function () {
             $await(seedAnimate());
             $await(growAnimate());
             $await(flowAnimate());
             $await(moveAnimate());
             textAnimate().start();
+            showNewContent().start();
         }));
 
         runAsync().start();
